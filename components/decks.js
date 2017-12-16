@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Platform, StatusBar, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Platform, StatusBar, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native'
 import { purple, white, red, blue } from '../utils/colors'
 import { connect } from 'react-redux'
 import { fetchDecks, altFetchDecks } from '../actions'
@@ -7,12 +7,15 @@ import { AppLoading } from 'expo'
 import { setTimeout } from 'core-js/library/web/timers';
 import { apiFetchDecks } from '../utils/api.js'
 import _ from 'lodash'
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+
 
 class Decks extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: `Decks`
+      title: `Decks`,
+      headerRight: <Button transparent title="Add Deck"><Text>Add Deck</Text></Button>,      
     }
   }
 
@@ -57,18 +60,28 @@ render() {
   
   
   return (
-    <View style={styles.container}>
-      <View style={{flex: 1, backgroundColor: 'red'}}>
-        {_.map(entries, (value, key) => (<Text>Deck Name: {value.title} && number of questions is: {value.questions.length} </Text>))}
-        {/* <Text>{JSON.stringify(entries)}</Text> */}
+    <Container>
+      <Content>
+      {_.map(entries, (value, key) => (
+        <Card key={key}>
+          <CardItem button onPress={ () => this.props.navigation.navigate('ViewDeck', {title: value.title} )}>
+            <Body>
+              <Text>{value.title}</Text>
+            </Body>
+          </CardItem>
+          <CardItem>
+            <Left>
+              <Button transparent>
+                <Icon active name="ios-albums" />
+                <Text>{`${value.questions.length} Cards`}</Text>
+              </Button>
+            </Left>
+          </CardItem>
+        </Card>
+      ))}
 
-      </View>
-      <TouchableOpacity style={styles.container} onPress={ () => this.props.navigation.navigate(
-          'ViewDeck' 
-      )}>
-      <Text>Hello</Text>
-      </TouchableOpacity>
-    </View>
+      </Content>
+    </Container>
   )
 }
 }
