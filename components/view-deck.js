@@ -9,7 +9,7 @@ class ViewDeck extends Component {
     
     return {
       title: params.title,
-      headerRight: <Button transparent title="Add Card"><Text style={{ color: 'white' }} >Add Card</Text></Button>,      
+      headerRight: <Button transparent title="Add Card" onPress={ () => navigation.navigate('AddCard')}><Text style={{ color: 'white' }} >Add Card</Text></Button>,      
     }
   }
 

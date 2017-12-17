@@ -1,13 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Platform } from 'react-native';
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import Decks from './components/decks.js'
 import ViewDeck from './components/view-deck.js'
+import AddDeck from './components/add-deck.js'
+import AddCard from './components/add-card.js'
 import { purple, white, red } from './utils/colors'
+import thunk from 'redux-thunk';
+import logger from 'redux-logger'
 
 // const Tabs = TabNavigator({
 //   Decks: {
@@ -51,15 +55,15 @@ const MainNavigator = StackNavigator({
       }
     }
   },
-  // AddDeck: {
-  //   screen: AddDeck,
-  //   navigationOptions: {
-  //     headerTintColor: red,
-  //     headerStyle: {
-  //       backgroundColor: white,
-  //     }
-  //   }
-  // },
+  AddDeck: {
+    screen: AddDeck,
+    navigationOptions: {
+      headerTintColor: red,
+      headerStyle: {
+        backgroundColor: white,
+      }
+    }
+  },
   ViewDeck: {
     screen: ViewDeck,
     navigationOptions: {
@@ -78,24 +82,29 @@ const MainNavigator = StackNavigator({
   //     }
   //   }
   // },
-  // AddCard: {
-  //   screen: AddCard,
-  //   navigationOptions: {
-  //     headerTintColor: red,
-  //     headerStyle: {
-  //       backgroundColor: white,
-  //     }
-  //   }
-  // },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: red,
+      }
+    }
+  },
 
 })
+
+
+const createStoreWithMiddleware = applyMiddleware(logger, thunk)(createStore);
+
+const store = createStoreWithMiddleware(reducer,{})
 
 
 export default class App extends React.Component {
 
   render() {
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider store={store}>
         <SafeAreaView style={styles.container}>
           <MainNavigator style={{flex: 1}} />
         </SafeAreaView>

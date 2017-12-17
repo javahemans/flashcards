@@ -1,26 +1,11 @@
-import { FETCH_DECKS, ADD_DECK, ALT_FETCH_DECKS } from '../actions'
+import { combineReducers } from 'redux';
+import DecksReducer from './decks-reducer.js';
+import { reducer as formReducer } from 'redux-form';
 
-function entries(state = {}, action) {
-  console.log("Action in Reducer is, ", action)
-  switch (action.type) {
-    case ALT_FETCH_DECKS:
-    return {
-      ...state,
-      ...action.payload        
-    }
-    case FETCH_DECKS:
-      return {
-        ...state,
-        ...action.payload        
-      }
-    case ADD_DECK:
-      return {
-        ...state,
-        ...action.payload
-      }
-    default:
-      return state
-  }
-}
+const rootReducer = combineReducers({
+  // state: (state = {}) => state 
+  decks: DecksReducer,
+  form: formReducer
+})
 
-export default entries
+export default rootReducer;

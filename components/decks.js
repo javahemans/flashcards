@@ -9,13 +9,12 @@ import { apiFetchDecks } from '../utils/api.js'
 import _ from 'lodash'
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 
-
 class Decks extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
       title: `Decks`,
-      headerRight: <Button transparent title="Add Deck"><Text>Add Deck</Text></Button>,      
+      headerRight: <Button transparent title="Add Deck" onPress={ () => navigation.navigate('AddDeck')}><Text>Add Deck</Text></Button>,      
     }
   }
 
@@ -46,10 +45,10 @@ async componentDidMount() {
 
 render() {
 
-  const { entries } = this.props
+  const { decks } = this.props
   const { loading, error } = this.state
 
-  console.log("Entries is, ", entries);
+  console.log("Entries is, ", this.props);
 
   if (loading) {
     return <AppLoading />;
@@ -62,7 +61,7 @@ render() {
   return (
     <Container>
       <Content>
-      {_.map(entries, (value, key) => (
+      {_.map(decks, (value, key) => (
         <Card key={key}>
           <CardItem button onPress={ () => this.props.navigation.navigate('ViewDeck', {title: value.title} )}>
             <Body>
@@ -101,8 +100,8 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-function mapStateToProps(entries){
-  return { entries }
+function mapStateToProps({decks}){
+  return { decks }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Decks)
