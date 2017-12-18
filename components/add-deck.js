@@ -14,11 +14,12 @@ class AddDeck extends Component {
   }
 
   submit = values => {
-    const { addDeckAA, dispatch } = this.props
+    const { addDeck, dispatch, navigation } = this.props
     
     console.log("values is ", values)
-    addDeckAA(values.title)
+    addDeck(values.title)
     this.props.reset()
+    navigation.navigate('Home')
   }
 
   renderInput = ({ input, label, type, meta: { touched, error, warning } }) => {
@@ -64,11 +65,9 @@ function validate(values) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    addDeckAA: (request) => dispatch(addDeck(request)),
+    addDeck: (request) => dispatch(addDeck(request)),
   }
 }
-
-
 
 function mapStateToProps({ decks }){ // ES6: equivalent to state here and then const posts = state.posts in the body.
   return { decks }; // ES6 as opposed to posts:posts

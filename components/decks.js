@@ -15,6 +15,7 @@ class Decks extends Component {
     return {
       title: `Decks`,
       headerRight: <Button transparent title="Add Deck" onPress={ () => navigation.navigate('AddDeck')}><Text>Add Deck</Text></Button>,      
+      headerLeft: null
     }
   }
 
