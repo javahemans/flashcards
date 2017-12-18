@@ -19,7 +19,8 @@ class AddDeck extends Component {
     console.log("values is ", values)
     addDeck(values.title)
     this.props.reset()
-    navigation.navigate('Home')
+      // this.props.untouch(...input)      
+    navigation.navigate('Home') //navigation.goBack is borked.
   }
 
   renderInput = ({ input, label, type, meta: { touched, error, warning } }) => {
