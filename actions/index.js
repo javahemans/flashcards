@@ -1,4 +1,4 @@
-import { apiFetchDecks } from '../utils/api.js'
+import { apiFetchDecks, apiAddDeck } from '../utils/api.js'
 
 export const ALT_FETCH_DECKS = 'ALT_FETCH_DECKS';
 export const FETCH_DECKS = 'FETCH_DECKS';
@@ -31,9 +31,12 @@ export const altFetchDecks = async () => {
 }
 
 
-export const addDeck = (deck) => {
-  return {
-    type : ADD_DECK,
-    payload
+export function addDeck(title) {
+  return (dispatch) => {
+    apiAddDeck(title)
+      .then(res => {
+        console.log("In aDDDeck-  this is res, ", res)
+        dispatch({ type: ADD_DECK, payload: res })
+      });
   }
 }

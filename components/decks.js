@@ -61,6 +61,7 @@ render() {
   return (
     <Container>
       <Content>
+        <Text>{JSON.stringify(decks)}</Text>
       {_.map(decks, (value, key) => (
         <Card key={key}>
           <CardItem button onPress={ () => this.props.navigation.navigate('ViewDeck', {title: value.title} )}>

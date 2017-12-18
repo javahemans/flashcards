@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-export const MFLASH_STORAGE_KEY = 'yyntharani-udacity-flashcards';
+export const MFLASH_STORAGE_KEY = "ao";
 
 let seedData = {
   React: {
@@ -39,9 +39,17 @@ export function apiFetchDeck(deckTitle) {
   });
 }
 
-export function addDeck(deckTitle) {
-    return AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, JSON.stringify(deckTitle));
+// export function addDeck(deckTitle) {
+//     return AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, JSON.stringify(deckTitle));
+// }
+
+export const apiAddDeck = (title) => {
+  const newPayload = JSON.stringify({ [title]: { title, questions: [] } })
+  return AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, newPayload, (err) => {console.log("error", err)})
 }
+
+export const addCard = (key, value) =>
+AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, JSON.stringify({ [key]: { questions: value } }));
 
 // export function addQuestionForDeck({card, deckName}) {
 //     return AsyncStorage.getItem(MFLASH_STORAGE_KEY, (err, result) => {

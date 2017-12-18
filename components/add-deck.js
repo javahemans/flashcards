@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import { Container, Item, Input, Header, Body, Content, Title, Button, Text, Form, Label } from 'native-base';
+import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { addDeck } from '../actions';
+
 
 class AddDeck extends Component {
 
@@ -9,15 +13,72 @@ class AddDeck extends Component {
     }
   }
 
+  submit = values => {
+    const { addDeckAA, dispatch } = this.props
+    
+    console.log("values is ", values)
+    addDeckAA(values.title)
+    this.props.reset()
+  }
+
+  renderInput = ({ input, label, type, meta: { touched, error, warning } }) => {
+
+    return ( 
+      <Item stackedLabel last error={!!(touched && error)}>
+      <Label>Deck Title</Label>
+        <Input {...input}/>
+        {touched && error ? <Text>{error}</Text> : <Text />}
+      </Item>
+    )
+  }
+
   render() {
+    const { handleSubmit, reset } = this.props;
+    
     return (
       <Container>
-        <Content>
-          <Text>Add Deck Page</Text>
+        <Content padder>
+          <Form>
+          <Field name="title" component={this.renderInput} />
+          <Button block primary onPress={handleSubmit(this.submit)} style={{ marginTop: 20 }}>
+            <Text>Submit</Text>
+          </Button>
+          </Form>
         </Content>
       </Container>
     )
   }
 }
 
-export default AddDeck
+function validate(values) {
+  const errors = {}
+
+  if(!values.title) {
+    errors.title = "Enter a title";
+  }
+
+  // If errors is empty, form is fine to submit.
+
+  return errors;
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    addDeckAA: (request) => dispatch(addDeck(request)),
+  }
+}
+
+
+
+function mapStateToProps({ decks }){ // ES6: equivalent to state here and then const posts = state.posts in the body.
+  return { decks }; // ES6 as opposed to posts:posts
+}
+
+AddDeck = connect(mapStateToProps, mapDispatchToProps )(AddDeck)
+
+
+export default AddDeck =  reduxForm({
+  validate,
+  form: 'NewDeckForm'
+})(AddDeck);
+

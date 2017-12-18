@@ -95,10 +95,7 @@ const MainNavigator = StackNavigator({
 })
 
 
-const createStoreWithMiddleware = applyMiddleware(logger, thunk)(createStore);
-
-const store = createStoreWithMiddleware(reducer,{})
-
+const store = createStore(reducer, {}, applyMiddleware(thunk, logger));
 
 export default class App extends React.Component {
 
