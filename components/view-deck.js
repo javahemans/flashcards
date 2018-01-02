@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
-import { Container, Button, Text, Content, H1, H2, H3 } from 'native-base';
+import { Container, Button, Text, Content, H1, H2, H3, screenHeight, Dimensions } from 'native-base';
 
 class ViewDeck extends Component {
 
@@ -14,14 +14,18 @@ class ViewDeck extends Component {
   }
 
   render () {
+    const { params } = this.props.navigation.state;
 
     return (
       <Container>
-        <Content>
-          <H1>Yo</H1>
-          <H2>Header Two</H2>
-          <H3>Header Three</H3>
-          <Text>Default</Text>
+        <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'space-around', padding: 10}}>
+          <H1>{params.title}</H1>
+          <View style={{justifyContent: 'center'}}>
+            <H2>{`${params.deck.questions.length} Cards`}</H2>
+          </View>
+          <Button block success>
+            <Text>Start Quiz</Text>
+          </Button>
         </Content>
       </Container>
     )

@@ -65,7 +65,7 @@ render() {
         <Text>{JSON.stringify(decks)}</Text>
       {_.map(decks, (value, key) => (
         <Card key={key}>
-          <CardItem button onPress={ () => this.props.navigation.navigate('ViewDeck', {title: value.title} )}>
+          <CardItem button onPress={ () => this.props.navigation.navigate('ViewDeck', {title: value.title, deck: value} )}>
             <Body>
               <H1 style={{ alignSelf: "center" }}>{value.title}</H1>
             </Body>
