@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Item, Input, Header, Body, Content, Title, Button, Text, Form, Label } from 'native-base';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, reset, untouch } from 'redux-form';
 import { connect } from 'react-redux';
 import { addDeck } from '../actions';
 
@@ -18,8 +18,8 @@ class AddDeck extends Component {
     
     console.log("values is ", values)
     addDeck(values.title)
-    this.props.reset()
-      // this.props.untouch(...input)      
+    dispatch(reset('NewDeckForm'));
+    dispatch(untouch('NewDeckForm'));
     navigation.navigate('Home') //navigation.goBack is borked.
   }
 
@@ -29,7 +29,7 @@ class AddDeck extends Component {
       <Item stackedLabel last error={!!(touched && error)}>
       <Label>Deck Title</Label>
         <Input {...input}/>
-        {touched && error ? <Text>{error}</Text> : <Text />}
+        <Text>{touched && error ? error : null }</Text>
       </Item>
     )
   }

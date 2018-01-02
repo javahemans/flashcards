@@ -7,7 +7,7 @@ import { AppLoading } from 'expo'
 import { setTimeout } from 'core-js/library/web/timers';
 import { apiFetchDecks } from '../utils/api.js'
 import _ from 'lodash'
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, H1, H2, H3 } from 'native-base';
 
 class Decks extends Component {
 
@@ -21,27 +21,27 @@ class Decks extends Component {
 
 
   state = { 
-    loading: true,
+    loading: false,
     error: false, 
   };
   
-async componentDidMount() {
-
+componentDidMount() {
   const { altFetchDecks, fetchDecks, dispatch } = this.props
+  altFetchDecks()
 
-  try {
-    const request = await apiFetchDecks();
-    this.setState({ 
-      loading: false, 
-    });
-    console.log("The request from await is: ", request);
-    fetchDecks(request)
-  } catch (e) {
-    this.setState({ 
-      loading: false, 
-      error: true,
-    }); 
-  }
+  // try {
+  //   const request = await apiFetchDecks();
+  //   this.setState({ 
+  //     loading: false, 
+  //   });
+  //   console.log("The request from await is: ", request);
+  //   fetchDecks(request)
+  // } catch (e) {
+  //   this.setState({ 
+  //     loading: false, 
+  //     error: true,
+  //   }); 
+  // }
 }
 
 render() {
@@ -67,7 +67,7 @@ render() {
         <Card key={key}>
           <CardItem button onPress={ () => this.props.navigation.navigate('ViewDeck', {title: value.title} )}>
             <Body>
-              <Text>{value.title}</Text>
+              <H1 style={{ alignSelf: "center" }}>{value.title}</H1>
             </Body>
           </CardItem>
           <CardItem>
@@ -95,15 +95,15 @@ const styles = StyleSheet.create({
 });
 
 
-function mapDispatchToProps (dispatch) {
-  return {
-    fetchDecks: (request) => dispatch(fetchDecks(request)),
-    altFetchDecks: () => dispatch(altFetchDecks())
-  }
-}
+// function mapDispatchToProps (dispatch) {
+//   return {
+//     fetchDecks: (request) => dispatch(fetchDecks(request)),
+//     altFetchDecks: () => dispatch(altFetchDecks())
+//   }
+// }
 
 function mapStateToProps({decks}){
   return { decks }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Decks)
+export default connect(mapStateToProps, { altFetchDecks })(Decks)

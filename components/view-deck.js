@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
-import { Container, Button, Text } from 'native-base';
+import { Container, Button, Text, Content, H1, H2, H3 } from 'native-base';
 
 class ViewDeck extends Component {
 
@@ -14,8 +14,16 @@ class ViewDeck extends Component {
   }
 
   render () {
+
     return (
-      <Text> ViewDeck Page </Text>
+      <Container>
+        <Content>
+          <H1>Yo</H1>
+          <H2>Header Two</H2>
+          <H3>Header Three</H3>
+          <Text>Default</Text>
+        </Content>
+      </Container>
     )
   }
 }

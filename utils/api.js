@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-export const MFLASH_STORAGE_KEY = "AA";
+export const MFLASH_STORAGE_KEY = "1AAeoqve1";
 
 let seedData = {
   React: {
