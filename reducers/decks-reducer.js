@@ -1,4 +1,4 @@
-import { FETCH_DECKS, ADD_DECK, ALT_FETCH_DECKS } from '../actions'
+import { FETCH_DECKS, ADD_DECK, ADD_CARD, ALT_FETCH_DECKS } from '../actions'
 
 function DecksReducer(state = {}, action) {
   console.log("Action in Reducer is, ", action)
@@ -18,6 +18,11 @@ function DecksReducer(state = {}, action) {
         ...state,
         ...action.payload
       }
+    case ADD_CARD:
+      return {
+        ...state,
+        ...action.payload
+      }      
     default:
       return state
   }

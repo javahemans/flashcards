@@ -9,7 +9,7 @@ class ViewDeck extends Component {
     
     return {
       title: params.title,
-      headerRight: <Button transparent title="Add Card" onPress={ () => navigation.navigate('AddCard')}><Text style={{ color: 'white' }} >Add Card</Text></Button>,      
+      headerRight: <Button transparent title="Add Card" onPress={ () => navigation.navigate('AddCard', {deck: params.deck})}><Text style={{ color: 'white' }} >Add Card</Text></Button>,      
     }
   }
 
@@ -19,9 +19,10 @@ class ViewDeck extends Component {
     return (
       <Container>
         <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'space-around', padding: 10}}>
-          <H1>{params.title}</H1>
+          <H1>{params.deck.title}</H1>
           <View style={{justifyContent: 'center'}}>
             <H2>{`${params.deck.questions.length} Cards`}</H2>
+            <Text>{JSON.stringify(params.deck.questions)}</Text>
           </View>
           <Button block success>
             <Text>Start Quiz</Text>

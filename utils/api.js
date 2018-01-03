@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-export const MFLASH_STORAGE_KEY = "2AAeoqve1";
+export const MFLASH_STORAGE_KEY = 'g1234567';
 
 let seedData = {
   React: {
@@ -27,29 +27,42 @@ let seedData = {
   }
 };
 
+export function setupSeedData() {
+	AsyncStorage.setItem(MFLASH_STORAGE_KEY, JSON.stringify(seedData))
+	return seedData
+}
+
 export function apiFetchDecks() {
     return AsyncStorage.getItem(MFLASH_STORAGE_KEY).then(results => {
-        return results === null ? seedData : JSON.parse(results)
+        return results === null ? setupSeedData() : JSON.parse(results)
     });
 }
 
 export function apiFetchDeck(deckTitle) {
   return AsyncStorage.getItem(MFLASH_STORAGE_KEY).then(results => {
-      return results === null ? seedData : JSON.parse(results)
+      return JSON.parse(results)[deckTitle]
   });
 }
-
-// export function addDeck(deckTitle) {
-//     return AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, JSON.stringify(deckTitle));
-// }
 
 export const apiAddDeck = (title) => {
   const newPayload = JSON.stringify({ [title]: { title, questions: [] } })
   return AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, newPayload, (err) => {console.log("error", err)})
 }
 
-export const addCard = (key, value) =>
-AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, JSON.stringify({ [key]: { questions: value } }));
+export const apiAddCard = async (title, card) => {
+  try {
+  const oldQs = await apiFetchDeck(title)
+  console.log("Card is, ", card);
+  console.log("Old Q's are, ", oldQs.questions);
+  const updatedQ = [...oldQs.questions, card]
+  console.log("News Q's are, ", updatedQ);
+  const newPayload = JSON.stringify({ [title]: { title, questions: updatedQ  } })
+  return AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, newPayload, (err) => {console.log("error", err)})
+
+} catch (e) {
+    console.log("Error is, ", e)
+  }
+}
 
 // export function addQuestionForDeck({card, deckName}) {
 //     return AsyncStorage.getItem(MFLASH_STORAGE_KEY, (err, result) => {
@@ -65,6 +78,23 @@ AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, JSON.stringify({ [key]: { questions: 
 //         AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, value);
 //     });
 // }
+
+
+export const addCardToDeck = (title, card) => {
+  return AsyncStorage.getItem(MFLASH_STORAGE_KEY)
+      .then(results => {
+          return JSON.parse(results)[title]
+      })
+      .then(data => {
+          const questions = data.questions.concat(card);
+          AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, JSON.stringify({
+              [title]: {
+                  title,
+                  questions
+              }
+          }));
+      })
+}
 
 // getDecks: return all of the decks along with their titles, questions, and answers. 
 // getDeck: take in a single id argument and return the deck associated with that id. 

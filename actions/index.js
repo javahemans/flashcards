@@ -1,8 +1,9 @@
-import { apiFetchDecks, apiAddDeck } from '../utils/api.js'
+import { apiFetchDecks, apiAddDeck, apiAddCard } from '../utils/api.js'
 
 export const ALT_FETCH_DECKS = 'ALT_FETCH_DECKS';
 export const FETCH_DECKS = 'FETCH_DECKS';
 export const ADD_DECK = 'ADD_DECK';
+export const ADD_CARD = 'ADD_CARD';
 
 
 // export const fetchDecks = (request) => {
@@ -40,6 +41,17 @@ export function addDeck(title) {
       .then(res => {
         console.log("In addDeck Action-  this is res, ", res)
         dispatch({ type: ADD_DECK, payload: res })
+      });
+  }
+}
+
+export function addCard(title, card) {
+  return (dispatch) => {
+    console.log("In addCard, part 1, card is: ", card, title)
+    apiAddCard(title, card)
+      .then(res => {
+        console.log("In addCard Action-  this is res, ", res)
+        dispatch({ type: ADD_CARD, payload: res })
       });
   }
 }

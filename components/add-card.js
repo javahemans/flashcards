@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import { Container, Item, Input, Header, Body, Content, Title, Button, Text, Form, Label } from 'native-base';
+import { Field, reduxForm, reset, untouch } from 'redux-form';
+import { connect } from 'react-redux';
+import { addCard } from '../actions';
+
 
 class AddCard extends Component {
 
@@ -9,15 +13,84 @@ class AddCard extends Component {
     }
   }
 
+  submit = values => {
+    const { addCard, dispatch, navigation } = this.props
+    const { params } = navigation.state;
+    console.log("values is ", values)
+
+    addCard(params.deck.title, values)
+    dispatch(reset('NewCardForm'));
+    dispatch(untouch('NewCardForm'));
+    navigation.navigate('Home') //navigation.goBack is borked.
+  }
+
+  renderInput = ({ input, label, type, meta: { touched, error, warning } }) => {
+
+    return ( 
+      <Item stackedLabel last error={!!(touched && error)}>
+      <Label>{label}</Label>
+        <Input 
+        {...input}
+        multiline={true}
+        numberOfLines={4}
+        />
+        <Text>{touched && error ? error : null }</Text>
+      </Item>
+    )
+  }
+
   render() {
+    const { handleSubmit, reset } = this.props;
+    
     return (
       <Container>
-        <Content>
-          <Text>Add Card Page</Text>
+        <Content padder>
+          <Form>
+          <Field name="question" label="question" component={this.renderInput} />
+          <Field name="answer" label="answer" component={this.renderInput} />
+
+          <Button block primary onPress={handleSubmit(this.submit)} style={{ marginTop: 20 }}>
+            <Text>Submit</Text>
+          </Button>
+          </Form>
         </Content>
       </Container>
     )
   }
 }
 
-export default AddCard
+function validate(values) {
+  const errors = {}
+
+  if(!values.question) {
+    errors.question = "Enter a question";
+  }
+
+  if(!values.answer) {
+    errors.answer = "Enter an answer";
+  }
+  
+
+  // If errors is empty, form is fine to submit.
+
+  return errors;
+}
+
+// function mapDispatchToProps (dispatch) {
+//   return {
+//     addCard: (title, card) => dispatch(addCard(title, card)),
+//   }
+// }
+
+function mapStateToProps({ decks }){ // ES6: equivalent to state here and then const posts = state.posts in the body.
+  return { decks }; // ES6 as opposed to posts:posts
+}
+
+AddCard = connect(mapStateToProps, {addCard} )(AddCard)
+
+
+export default AddCard =  reduxForm({
+  validate,
+  form: 'NewCardForm'
+})(AddCard);
+

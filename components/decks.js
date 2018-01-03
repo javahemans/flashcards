@@ -19,7 +19,6 @@ class Decks extends Component {
     }
   }
 
-
   state = { 
     loading: false,
     error: false, 
