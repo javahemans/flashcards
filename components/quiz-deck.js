@@ -50,7 +50,8 @@ class QuizView extends Component {
 
   }
 
-  resetNotification() {
+  resetNotification = () => {
+    console.log("Finished, clearning notifications ", this.state.view)
     clearLocalNotification()
       .then(setLocalNotification);
   }
@@ -58,7 +59,7 @@ class QuizView extends Component {
   render () {
     const { params } = this.props.navigation.state;
     const { deck } = this.props;
-    this.state.view === "Finished" ? resetNotification() : console.log("Going ", this.state.view)
+    this.state.view === "Finished" ?  this.resetNotification() : console.log("Going ", this.state.view)
     
     return (
 
