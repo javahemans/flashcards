@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Item, Input, Header, Body, Content, Title, Button, Text, Form, Label } from 'native-base';
+import { Container, Item, Input, Textarea, Header, Body, Content, Title, Button, Text, Form, Label } from 'native-base';
 import { Field, reduxForm, reset, untouch } from 'redux-form';
 import { connect } from 'react-redux';
 import { addCard } from '../actions';
@@ -38,12 +38,13 @@ class AddCard extends Component {
   renderInput = ({ input, label, last, type, meta: { touched, error, warning } }) => {
 
     return ( 
-      <Item stackedLabel last error={!!(touched && error)}>
+      <Item stackedLabel error={!!(touched && error)}>
       <Label>{label}</Label>
         <Input 
+        style={{height: 70}}
         {...input}
         multiline={true}
-        numberOfLines={4}
+        numberOfLines={14}
         />
         <Text>{touched && error ? error : null }</Text>
       </Item>

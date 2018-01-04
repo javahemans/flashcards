@@ -29,12 +29,12 @@ class ViewDeck extends Component {
     return (
       <Container>
         <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'space-around', padding: 10}}>
-          <H1>{params.deck.title}</H1>
+          {/* <H1>{params.deck.title}</H1> */}
           <H1>{deck.title}</H1>          
           <View style={{justifyContent: 'center'}}>
-            <H2>{`${params.deck.questions.length} Cards`}</H2>
+            {/* <H2>{`${params.deck.questions.length} Cards`}</H2> */}
             <H2>{`${deck.questions.length} Cards`}</H2>
-            <Text>{JSON.stringify(params.deck.questions)}</Text>
+            {/* <Text>{JSON.stringify(params.deck.questions)}</Text> */}
           </View>
           <Button block success>
             <Text>Start Quiz</Text>

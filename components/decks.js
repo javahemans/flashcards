@@ -61,21 +61,20 @@ render() {
   return (
     <Container>
       <Content>
-        <Text>{JSON.stringify(decks)}</Text>
+        {/* <Text>{JSON.stringify(decks)}</Text> */}
       {_.map(decks, (value, key) => (
         <Card key={key}>
           <CardItem button onPress={ () => this.props.navigation.navigate('ViewDeck', {title: value.title, deck: value} )}>
-            <Body>
-              <H1 style={{ alignSelf: "center" }}>{value.title}</H1>
-            </Body>
-          </CardItem>
-          <CardItem>
             <Left>
-              <Button transparent>
+              <H1 style={{ alignSelf: "center" }}>{value.title}</H1>
+            </Left>
+            <Right>
+              <Icon name="arrow-forward" />
+            </Right>
+          </CardItem>
+          <CardItem footer>
                 <Icon active name="ios-albums" />
                 <Text>{`${value.questions.length} Cards`}</Text>
-              </Button>
-            </Left>
           </CardItem>
         </Card>
       ))}
