@@ -9,6 +9,8 @@ import Decks from './components/decks.js'
 import ViewDeck from './components/view-deck.js'
 import AddDeck from './components/add-deck.js'
 import AddCard from './components/add-card.js'
+import QuizView from './components/quiz-deck.js'
+
 import { purple, white, red } from './utils/colors'
 import thunk from 'redux-thunk';
 import logger from 'redux-logger'
@@ -73,15 +75,15 @@ const MainNavigator = StackNavigator({
       }
     }
   },
-  // QuizView: {
-  //   screen: QuizView,
-  //   navigationOptions: {
-  //     headerTintColor: red,
-  //     headerStyle: {
-  //       backgroundColor: white,
-  //     }
-  //   }
-  // },
+  QuizView: {
+    screen: QuizView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: red,
+      }
+    }
+  },
   AddCard: {
     screen: AddCard,
     navigationOptions: {

@@ -4,14 +4,14 @@ import { Container, Button, Text, Content, H1, H2, H3, screenHeight, Dimensions 
 import { fetchDeck } from '../actions'
 import { connect } from 'react-redux'
 
-class ViewDeck extends Component {
+class QuizView extends Component {
 
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
     
     return {
       title: params.title,
-      headerRight: <Button transparent title="Add Card" onPress={ () => navigation.navigate('AddCard', {deck: params.deck })}><Text style={{ color: 'white' }} >Add Card</Text></Button>,      
+      headerRight: <Button transparent title="Reset" onPress={ () => navigation.navigate('Home')}><Text style={{ color: 'white' }} >Reset Quiz</Text></Button>,      
     }
   }
 
@@ -36,7 +36,7 @@ class ViewDeck extends Component {
             <H2>{`${deck.questions.length} Cards`}</H2>
             {/* <Text>{JSON.stringify(params.deck.questions)}</Text> */}
           </View>
-          <Button block success onPress={ () => this.props.navigation.navigate('QuizView', {title: "Quiz", deck} )}>
+          <Button block success>
             <Text>Start Quiz</Text>
           </Button>
         </Content>
@@ -53,4 +53,4 @@ function mapStateToProps({decks}, ownProps){
    }
 }
 
-export default connect(mapStateToProps, { fetchDeck })(ViewDeck)
+export default connect(mapStateToProps, { fetchDeck })(QuizView)
