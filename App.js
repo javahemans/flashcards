@@ -51,9 +51,9 @@ const MainNavigator = StackNavigator({
   Home: {
     screen: Decks,
     navigationOptions: {
-      headerTintColor: red,
+      headerTintColor: white,
       headerStyle: {
-        backgroundColor: white,
+        backgroundColor: red,
       }
     }
   },
@@ -87,9 +87,9 @@ const MainNavigator = StackNavigator({
   AddCard: {
     screen: AddCard,
     navigationOptions: {
-      headerTintColor: white,
+      headerTintColor: red,
       headerStyle: {
-        backgroundColor: red,
+        backgroundColor: white,
       }
     }
   },

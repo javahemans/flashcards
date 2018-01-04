@@ -36,11 +36,17 @@ class ViewDeck extends Component {
             <H2>{`${deck.questions.length} Cards`}</H2>
             {/* <Text>{JSON.stringify(params.deck.questions)}</Text> */}
           </View>
-          <Button block success disabled={!deck.questions.length} onPress={ () => this.props.navigation.navigate('QuizView', {title: "Quiz", deck} )}>
-            <Text>Start Quiz</Text>
-          </Button>
           <Text>{deck.questions.length ? "" : "Add a card to get started" }</Text>
         </Content>
+        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          <Button bordered
+            block success disabled={!deck.questions.length} 
+            style={{height:80, margin: 10, padding: 10}}
+            onPress={ () => this.props.navigation.navigate('QuizView', {title: "Quiz", deck} )}
+          >
+            <Text>Start Quiz</Text>
+          </Button>
+        </View>
       </Container>
     )
   }

@@ -64,6 +64,22 @@ class QuizView extends Component {
             <H2>{`Q${this.state.questionIndex+1} of ${deck.questions.length}`}</H2>
             {/* <H2>{JSON.stringify(deck)}</H2> */}
           </Content>
+          <View style={{flexDirection: 'row', marginBottom: 10}}>
+            <Button 
+              full block bordered success 
+              style={{flex:1, justifyContent: 'center', height: 80, marginLeft: 10, marginRight: 10}}
+              onPress={this.gotCorrect}
+            >
+              <Text>Correct</Text>
+            </Button>
+            <Button 
+              full block bordered danger 
+              style={{flex:1, justifyContent: 'center', height: 80, marginRight: 10}}
+              onPress={this.gotInCorrect}
+            >
+              <Text>InCorrect</Text>
+            </Button>
+          </View>
           <View style={{alignItems: 'center', justifyContent: 'center'}}>
             <Button 
               bordered warning 
@@ -73,22 +89,7 @@ class QuizView extends Component {
               <Text>Show Answer</Text>
             </Button>  
           </View>
-          <View style={{flexDirection: 'row'}}>
-            <Button 
-              full block bordered success 
-              style={{flex:1, justifyContent: 'center', height:80}}
-              onPress={this.gotCorrect}
-            >
-              <Text>Correct</Text>
-            </Button>
-            <Button 
-              full block bordered danger 
-              style={{flex:1, justifyContent: 'center', height:80}}
-              onPress={this.gotInCorrect}
-            >
-              <Text>InCorrect</Text>
-            </Button>
-          </View>
+
         </Container>
         : this.state.view === "Answer" 
           ?
@@ -96,26 +97,31 @@ class QuizView extends Component {
             <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'space-around'}}>
             <H1>Answer</H1>
             <H2>{deck.questions[this.state.questionIndex].answer}</H2>
+            </Content>
+            <View style={{alignItems: 'center', justifyContent: 'center'}}>
             <Button bordered warning 
               style={{height:80, justifyContent: 'center', alignSelf:'auto', margin: 10, padding: 10}} 
               onPress={() => this.setState({view: "Quiz"})}
             >
               <Text>Show Quiz</Text>
             </Button>  
-            </Content>
+          </View>
+            
           </Container>
           : 
           <Container>
             <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'space-around'}}>
               <H1>Your Summary</H1>
               <H2>Correct:{`${this.state.correct}/${deck.questions.length}`}</H2>
+            </Content>
+            <View style={{alignItems: 'center', justifyContent: 'center'}}>
               <Button bordered warning 
                 style={{height:80, justifyContent: 'center', alignSelf:'auto', margin: 10, padding: 10}} 
                 onPress={() => this.setState({questionIndex: 0, correct: 0, incorrect: 0, view: "Quiz"})}
               >
                 <Text>Restart Quiz</Text>
               </Button>  
-            </Content>
+            </View>
           </Container>
     )
   }

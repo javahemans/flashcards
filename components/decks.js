@@ -14,7 +14,7 @@ class Decks extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: `Decks`,
-      headerRight: <Button transparent title="Add Deck" onPress={ () => navigation.navigate('AddDeck')}><Text>Add Deck</Text></Button>,      
+      headerRight: <Button transparent title="Add Deck" onPress={ () => navigation.navigate('AddDeck')}><Text style={{ color: 'white' }}>Add Deck</Text></Button>,      
       headerLeft: null
     }
   }
