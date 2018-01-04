@@ -12,7 +12,7 @@ class QuizView extends Component {
     
     return {
       title: params.title,
-      headerRight: <Button transparent title="Reset" onPress={ () => navigation.navigate('Home')}><Text style={{ color: 'white' }} >Reset Quiz</Text></Button>,      
+      headerRight: <Button transparent title="Reset" onPress={ () => navigation.navigate('Home')}><Text style={{ color: 'white' }} >Exit Quiz</Text></Button>,      
     }
   }
 
@@ -29,6 +29,26 @@ class QuizView extends Component {
     console.log("Params deck - This value is ", params.deck.title)
     fetchDeck(params.deck.title)
   }
+
+  gotCorrect = () => {
+    const { deck } = this.props;
+    this.setState({correct: this.state.correct+1 })
+    console.log("Got it correct! ", this.state.questionIndex, this.state.correct+1, deck.questions.length)
+    this.state.questionIndex < (deck.questions.length - 1)
+      ? this.setState({ questionIndex: this.state.questionIndex+1})
+      : this.setState({view: "Finished"})
+  }
+
+  gotInCorrect = () => {
+    const { deck } = this.props;
+    this.setState({incorrect: this.state.incorrect+1 })
+    console.log("Got it Wrong! ", this.state.questionIndex, this.state.incorrect+1, deck.questions.length)
+    this.state.questionIndex < (deck.questions.length -1)
+      ? this.setState({ questionIndex: this.state.questionIndex+1})
+      : this.setState({view: "Finished"})
+
+  }
+
 
   render () {
     const { params } = this.props.navigation.state;
@@ -54,10 +74,18 @@ class QuizView extends Component {
             </Button>  
           </View>
           <View style={{flexDirection: 'row'}}>
-            <Button full block bordered success style={{flex:1, justifyContent: 'center', height:80}}>
+            <Button 
+              full block bordered success 
+              style={{flex:1, justifyContent: 'center', height:80}}
+              onPress={this.gotCorrect}
+            >
               <Text>Correct</Text>
             </Button>
-            <Button full block bordered danger style={{flex:1, justifyContent: 'center', height:80}}>
+            <Button 
+              full block bordered danger 
+              style={{flex:1, justifyContent: 'center', height:80}}
+              onPress={this.gotInCorrect}
+            >
               <Text>InCorrect</Text>
             </Button>
           </View>
@@ -78,7 +106,16 @@ class QuizView extends Component {
           </Container>
           : 
           <Container>
-            <Text>Quiz Summary Page</Text>
+            <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'space-around'}}>
+              <H1>Your Summary</H1>
+              <H2>Correct:{`${this.state.correct}/${deck.questions.length}`}</H2>
+              <Button bordered warning 
+                style={{height:80, justifyContent: 'center', alignSelf:'auto', margin: 10, padding: 10}} 
+                onPress={() => this.setState({questionIndex: 0, correct: 0, incorrect: 0, view: "Quiz"})}
+              >
+                <Text>Restart Quiz</Text>
+              </Button>  
+            </Content>
           </Container>
     )
   }
