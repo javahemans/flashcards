@@ -17,7 +17,10 @@ class QuizView extends Component {
   }
 
   state = {
-    view: "Quiz"
+    view: "Quiz",
+    questionIndex: 0,
+    correct: 0,
+    incorrect: 0,
   }
 
   componentDidMount() {
@@ -37,13 +40,17 @@ class QuizView extends Component {
         ?       
         <Container>
           <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'space-around'}}>
-            <H1>{deck.title}</H1>          
-            <H2>{`${deck.questions.length} Cards`}</H2>
-            <H1> This is..  ooeu oeau au oeu aou oaueu oeau</H1>
+            <H1>{deck.questions[this.state.questionIndex].question}</H1>
+            <H2>{`Q${this.state.questionIndex+1} of ${deck.questions.length}`}</H2>
+            {/* <H2>{JSON.stringify(deck)}</H2> */}
           </Content>
           <View style={{alignItems: 'center', justifyContent: 'center'}}>
-            <Button bordered warning style={{height:80, justifyContent: 'center', alignSelf:'auto', margin: 10, padding: 10}} onPress={() => this.setState({view: "Answer"})}>
-              <H2>Show Answer</H2>
+            <Button 
+              bordered warning 
+              style={{height:80, justifyContent: 'center', alignSelf:'auto', margin: 10, padding: 10}} 
+              onPress={() => this.setState({view: "Answer"})}
+            >
+              <Text>Show Answer</Text>
             </Button>  
           </View>
           <View style={{flexDirection: 'row'}}>
@@ -55,14 +62,23 @@ class QuizView extends Component {
             </Button>
           </View>
         </Container>
-        : <Container>
-          <View style={{alignItems: 'center', justifyContent: 'center'}}>
-            <Text>Answer View</Text>
-            <Button bordered warning style={{height:80, justifyContent: 'center', alignSelf:'auto', margin: 10, padding: 10}} onPress={() => this.setState({view: "Quiz"})}>
-              <H2>Show Quiz</H2>
+        : this.state.view === "Answer" 
+          ?
+          <Container>
+            <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'space-around'}}>
+            <H1>Answer</H1>
+            <H2>{deck.questions[this.state.questionIndex].answer}</H2>
+            <Button bordered warning 
+              style={{height:80, justifyContent: 'center', alignSelf:'auto', margin: 10, padding: 10}} 
+              onPress={() => this.setState({view: "Quiz"})}
+            >
+              <Text>Show Quiz</Text>
             </Button>  
-          </View>
-
+            </Content>
+          </Container>
+          : 
+          <Container>
+            <Text>Quiz Summary Page</Text>
           </Container>
     )
   }
