@@ -1,7 +1,6 @@
 # FlashCards
 ## Udacity React Final Project #3
-![Home](images/IMG_1.PNG)
-![2](images/img_2.PNG)
+![Home](images/flashcards.gif)
 
 ## Overview
 FlashCards is a React-Native app to help you study. It allows you to easily create thematic decks of flash cards, each with a question and answer and then run a quick quiz on these decks to test your skills. You can view the answer and keep a tally of your progress. At the end of the Quiz a summary of your score will be shown. It has only been tested on iOS.
