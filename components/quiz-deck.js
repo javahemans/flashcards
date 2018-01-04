@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native'
 import { Container, Button, Text, Content, H1, H2, H3, screenHeight, Dimensions } from 'native-base';
 import { fetchDeck } from '../actions'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 
 class QuizView extends Component {
 
@@ -13,6 +14,10 @@ class QuizView extends Component {
       title: params.title,
       headerRight: <Button transparent title="Reset" onPress={ () => navigation.navigate('Home')}><Text style={{ color: 'white' }} >Reset Quiz</Text></Button>,      
     }
+  }
+
+  state = {
+    view: "Quiz"
   }
 
   componentDidMount() {
@@ -27,20 +32,38 @@ class QuizView extends Component {
     const { deck } = this.props;
 
     return (
-      <Container>
-        <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'space-around', padding: 10}}>
-          {/* <H1>{params.deck.title}</H1> */}
-          <H1>{deck.title}</H1>          
-          <View style={{justifyContent: 'center'}}>
-            {/* <H2>{`${params.deck.questions.length} Cards`}</H2> */}
+
+      this.state.view === "Quiz" 
+        ?       
+        <Container>
+          <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'space-around'}}>
+            <H1>{deck.title}</H1>          
             <H2>{`${deck.questions.length} Cards`}</H2>
-            {/* <Text>{JSON.stringify(params.deck.questions)}</Text> */}
+            <H1> This is..  ooeu oeau au oeu aou oaueu oeau</H1>
+          </Content>
+          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            <Button bordered warning style={{height:80, justifyContent: 'center', alignSelf:'auto', margin: 10, padding: 10}} onPress={() => this.setState({view: "Answer"})}>
+              <H2>Show Answer</H2>
+            </Button>  
           </View>
-          <Button block success>
-            <Text>Start Quiz</Text>
-          </Button>
-        </Content>
-      </Container>
+          <View style={{flexDirection: 'row'}}>
+            <Button full block bordered success style={{flex:1, justifyContent: 'center', height:80}}>
+              <Text>Correct</Text>
+            </Button>
+            <Button full block bordered danger style={{flex:1, justifyContent: 'center', height:80}}>
+              <Text>InCorrect</Text>
+            </Button>
+          </View>
+        </Container>
+        : <Container>
+          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            <Text>Answer View</Text>
+            <Button bordered warning style={{height:80, justifyContent: 'center', alignSelf:'auto', margin: 10, padding: 10}} onPress={() => this.setState({view: "Quiz"})}>
+              <H2>Show Quiz</H2>
+            </Button>  
+          </View>
+
+          </Container>
     )
   }
 }
