@@ -10,6 +10,7 @@ import ViewDeck from './components/view-deck.js'
 import AddDeck from './components/add-deck.js'
 import AddCard from './components/add-card.js'
 import QuizView from './components/quiz-deck.js'
+import { setLocalNotification } from './utils/notifications'
 
 import { purple, white, red } from './utils/colors'
 import thunk from 'redux-thunk';
@@ -100,6 +101,10 @@ const MainNavigator = StackNavigator({
 const store = createStore(reducer, {}, applyMiddleware(thunk, logger));
 
 export default class App extends React.Component {
+
+  componentDidMount() {
+    setLocalNotification()
+  }
 
   render() {
     return (

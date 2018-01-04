@@ -3,7 +3,8 @@ import { View, StyleSheet } from 'react-native'
 import { Container, Button, Text, Content, H1, H2, H3, screenHeight, Dimensions } from 'native-base';
 import { fetchDeck } from '../actions'
 import { connect } from 'react-redux'
-import _ from 'lodash'
+import { clearLocalNotification, setLocalNotification} from '../utils/notifications'
+
 
 class QuizView extends Component {
 
@@ -49,11 +50,16 @@ class QuizView extends Component {
 
   }
 
+  resetNotification() {
+    clearLocalNotification()
+      .then(setLocalNotification);
+  }
 
   render () {
     const { params } = this.props.navigation.state;
     const { deck } = this.props;
-
+    this.state.view === "Finished" ? resetNotification() : console.log("Going ", this.state.view)
+    
     return (
 
       this.state.view === "Quiz" 
