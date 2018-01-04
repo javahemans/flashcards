@@ -1,17 +1,19 @@
-import { apiFetchDecks, apiAddDeck, apiAddCard } from '../utils/api.js'
+import { apiFetchDecks, apiFetchDeck, apiAddDeck, apiAddCard } from '../utils/api.js'
 
 export const ALT_FETCH_DECKS = 'ALT_FETCH_DECKS';
 export const FETCH_DECKS = 'FETCH_DECKS';
+export const FETCH_DECK = 'FETCH_DECK';
 export const ADD_DECK = 'ADD_DECK';
 export const ADD_CARD = 'ADD_CARD';
 
 
-// export const fetchDecks = (request) => {
-//   return {
-//     type : FETCH_DECKS,
-//     payload: request
-//   }    
-// }
+export const fetchDeck = (deckTitle) => {
+  return (dispatch) => {
+    apiFetchDeck(deckTitle)
+    .then(data => dispatch({ type: FETCH_DECK, payload: data}))
+    .catch(err => console.log(err));
+  }
+}
 
 
 export const fetchDecks = () => {
@@ -21,6 +23,8 @@ export const fetchDecks = () => {
     .catch(err => console.log(err));
   }
 }
+
+// Getting familiar with Async/Await. Leaving it here for learning purposes. Functionally equivalent to above.
 
 export const altFetchDecks = () => {
   return async dispatch => {
@@ -37,10 +41,10 @@ export const altFetchDecks = () => {
 
 export function addDeck(title) {
   return (dispatch) => {
-    apiAddDeck(title)
-      .then(res => {
-        console.log("In addDeck Action-  this is res, ", res)
-        dispatch({ type: ADD_DECK, payload: res })
+     apiAddDeck(title)
+      .then(() => {
+        // console.log("In addDeck Action - on success res is null, so we just use the title to dispatch, ", res)
+        dispatch({ type: ADD_DECK, title })
       });
   }
 }
@@ -50,8 +54,8 @@ export function addCard(title, card) {
     console.log("In addCard, part 1, card is: ", card, title)
     apiAddCard(title, card)
       .then(res => {
-        console.log("In addCard Action-  this is res, ", res)
-        dispatch({ type: ADD_CARD, payload: res })
+        console.log("In addCard Action - - on success res is null, so we just dispatch ", res)
+          dispatch({ type: ADD_CARD, title, card })
       });
   }
 }

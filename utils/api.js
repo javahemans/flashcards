@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-export const MFLASH_STORAGE_KEY = 'g1234567';
+export const MFLASH_STORAGE_KEY = 'h4';
 
 let seedData = {
   React: {
@@ -44,9 +44,14 @@ export function apiFetchDeck(deckTitle) {
   });
 }
 
+noErr = (title) => {
+  console.log("No Error on AsyncStorage mergeItem..");
+}
+
 export const apiAddDeck = (title) => {
   const newPayload = JSON.stringify({ [title]: { title, questions: [] } })
-  return AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, newPayload, (err) => {console.log("error", err)})
+  // AsyncStorage: optional callback, success is no error, eg: Build the error as part of the callback
+ return AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, newPayload, (err) => { err ? console.log("error", err) : noErr(title) })
 }
 
 export const apiAddCard = async (title, card) => {
@@ -57,28 +62,12 @@ export const apiAddCard = async (title, card) => {
   const updatedQ = [...oldQs.questions, card]
   console.log("News Q's are, ", updatedQ);
   const newPayload = JSON.stringify({ [title]: { title, questions: updatedQ  } })
-  return AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, newPayload, (err) => {console.log("error", err)})
+  return AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, newPayload, (err) => { err ? console.log("error", err) : console.log("No error")})
 
-} catch (e) {
+  } catch (e) {
     console.log("Error is, ", e)
   }
 }
-
-// export function addQuestionForDeck({card, deckName}) {
-//     return AsyncStorage.getItem(MFLASH_STORAGE_KEY, (err, result) => {
-//         let decks = JSON.parse(result);
-
-//         let newQuestions = JSON.parse(JSON.stringify(decks[deckName].questions));
-//         newQuestions[newQuestions.length] = card;
-
-//         const value = JSON.stringify({
-//             [deckName]: {title: deckName, questions: newQuestions},
-//         });
-
-//         AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, value);
-//     });
-// }
-
 
 export const addCardToDeck = (title, card) => {
   return AsyncStorage.getItem(MFLASH_STORAGE_KEY)

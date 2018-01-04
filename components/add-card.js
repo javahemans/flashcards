@@ -3,6 +3,7 @@ import { Container, Item, Input, Header, Body, Content, Title, Button, Text, For
 import { Field, reduxForm, reset, untouch } from 'redux-form';
 import { connect } from 'react-redux';
 import { addCard } from '../actions';
+import { NavigationActions } from 'react-navigation'
 
 
 class AddCard extends Component {
@@ -21,10 +22,20 @@ class AddCard extends Component {
     addCard(params.deck.title, values)
     dispatch(reset('NewCardForm'));
     dispatch(untouch('NewCardForm'));
-    navigation.navigate('Home') //navigation.goBack is borked.
+    // navigation.navigate('Home') //navigation.goBack is borked.
+
+    const resetAction = NavigationActions.reset({
+      index: 1,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Home'}),
+        NavigationActions.navigate({ routeName: 'ViewDeck', params: {title: params.deck.title, deck: params.deck}})
+      ]
+    })
+    navigation.dispatch(resetAction)
+
   }
 
-  renderInput = ({ input, label, type, meta: { touched, error, warning } }) => {
+  renderInput = ({ input, label, last, type, meta: { touched, error, warning } }) => {
 
     return ( 
       <Item stackedLabel last error={!!(touched && error)}>
@@ -46,8 +57,8 @@ class AddCard extends Component {
       <Container>
         <Content padder>
           <Form>
-          <Field name="question" label="question" component={this.renderInput} />
-          <Field name="answer" label="answer" component={this.renderInput} />
+          <Field name="question" last="" label="question" component={this.renderInput} />
+          <Field name="answer" last="last" label="answer" component={this.renderInput} />
 
           <Button block primary onPress={handleSubmit(this.submit)} style={{ marginTop: 20 }}>
             <Text>Submit</Text>

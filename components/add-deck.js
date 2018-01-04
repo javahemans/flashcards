@@ -3,6 +3,7 @@ import { Container, Item, Input, Header, Body, Content, Title, Button, Text, For
 import { Field, reduxForm, reset, untouch } from 'redux-form';
 import { connect } from 'react-redux';
 import { addDeck } from '../actions';
+import { NavigationActions } from 'react-navigation'
 
 
 class AddDeck extends Component {
@@ -13,6 +14,9 @@ class AddDeck extends Component {
     }
   }
 
+
+
+
   submit = values => {
     const { addDeck, dispatch, navigation } = this.props
     
@@ -20,7 +24,16 @@ class AddDeck extends Component {
     addDeck(values.title)
     dispatch(reset('NewDeckForm'));
     dispatch(untouch('NewDeckForm'));
-    navigation.navigate('Home') //navigation.goBack is borked.
+
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Home'})
+      ]
+    })
+    navigation.dispatch(resetAction)
+
+    // navigation.navigate('Home') //navigation.goBack is borked.
   }
 
   renderInput = ({ input, label, type, meta: { touched, error, warning } }) => {
