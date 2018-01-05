@@ -15,6 +15,9 @@ import { setLocalNotification } from './utils/notifications'
 import { purple, white, red } from './utils/colors'
 import thunk from 'redux-thunk';
 import logger from 'redux-logger'
+import { Root } from "native-base";
+import { Font, AppLoading } from "expo";
+
 
 // Was told to split tho below out as a module, what's a good way to do that?
 
@@ -71,11 +74,28 @@ const store = createStore(reducer, {}, applyMiddleware(thunk, logger));
 
 export default class App extends React.Component {
 
+  state = { loading: true }
+
   componentDidMount() {
     setLocalNotification()
   }
 
+  async componentWillMount() {
+    await Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
+    });
+    this.setState({ loading: false });
+  }
+
   render() {
+    if (this.state.loading) {
+      return (
+        <Root>
+          <AppLoading />
+        </Root>
+      );
+    }
     return (
       <Provider store={store}>
         <SafeAreaView style={styles.container}>
