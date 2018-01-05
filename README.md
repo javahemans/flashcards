@@ -10,6 +10,7 @@ FlashCards is a React-Native app to help you study. It allows you to easily crea
   - `yarn install`
   - `yarn start`
   - This app has only been tested on iOS. Let us know your feedback on Android.
+  - This app uses [Expo](https://docs.expo.io/versions/latest/index.html)
 
 ## Features:
   - React-Native using Expo CRNA

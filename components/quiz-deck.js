@@ -27,14 +27,14 @@ class QuizView extends Component {
   componentDidMount() {
     const { params } = this.props.navigation.state;
     const { fetchDeck, dispatch } = this.props
-    console.log("Params deck - This value is ", params.deck.title)
+    // console.log("Params deck - This value is ", params.deck.title)
     fetchDeck(params.deck.title)
   }
 
   gotCorrect = () => {
     const { deck } = this.props;
     this.setState({correct: this.state.correct+1 })
-    console.log("Got it correct! ", this.state.questionIndex, this.state.correct+1, deck.questions.length)
+    // console.log("Got it correct! ", this.state.questionIndex, this.state.correct+1, deck.questions.length)
     this.state.questionIndex < (deck.questions.length - 1)
       ? this.setState({ questionIndex: this.state.questionIndex+1})
       : this.setState({view: "Finished"})
@@ -43,7 +43,7 @@ class QuizView extends Component {
   gotInCorrect = () => {
     const { deck } = this.props;
     this.setState({incorrect: this.state.incorrect+1 })
-    console.log("Got it Wrong! ", this.state.questionIndex, this.state.incorrect+1, deck.questions.length)
+    // console.log("Got it Wrong! ", this.state.questionIndex, this.state.incorrect+1, deck.questions.length)
     this.state.questionIndex < (deck.questions.length -1)
       ? this.setState({ questionIndex: this.state.questionIndex+1})
       : this.setState({view: "Finished"})
@@ -51,7 +51,7 @@ class QuizView extends Component {
   }
 
   resetNotification = () => {
-    console.log("Finished, clearning notifications ", this.state.view)
+    // console.log("Finished, clearning notifications ", this.state.view)
     clearLocalNotification()
       .then(setLocalNotification);
   }
@@ -59,7 +59,7 @@ class QuizView extends Component {
   render () {
     const { params } = this.props.navigation.state;
     const { deck } = this.props;
-    this.state.view === "Finished" ?  this.resetNotification() : console.log("Going ", this.state.view)
+    this.state.view === "Finished" ?  this.resetNotification() : ""
     
     return (
 

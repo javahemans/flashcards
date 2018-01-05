@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, SafeAreaView, Platform } from 'react-native';
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
-import { TabNavigator, StackNavigator } from 'react-navigation'
+import { StackNavigator } from 'react-navigation'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import Decks from './components/decks.js'
 import ViewDeck from './components/view-deck.js'
@@ -16,37 +16,7 @@ import { purple, white, red } from './utils/colors'
 import thunk from 'redux-thunk';
 import logger from 'redux-logger'
 
-// const Tabs = TabNavigator({
-//   Decks: {
-//     screen: Decks,
-//     navigationOptions: {
-//       tabBarLabel: 'Decks',
-//       tabBarIcon: ({ tintColor }) => <Ionicons name = 'ios-bookmarks' size={30} color={tintColor} />
-//     }
-//   },
-// }, {
-//   navigationOptions: {
-//     // header: null,
-//     headerStyle: {
-//       backgroundColor: white
-//     },    
-//   },
-//   tabBarOptions: {
-//     activeTintColor: Platform.OS === 'ios' ? purple : white,
-//     style: {
-//       height: 56,
-//       backgroundColor: Platform.OS === 'ios' ? red : purple,
-//       shadowColor: 'rgba(0,0,0,0.24)',
-//       shadowOffset: {
-//         width: 0,
-//         height: 3
-//       },
-//       shadowRadius: 6,
-//       shadowOpacity: 1
-//     }
-//   }
-// })
-
+// Was told to split tho below out as a module, what's a good way to do that?
 
 const MainNavigator = StackNavigator({
   Home: {
@@ -96,7 +66,6 @@ const MainNavigator = StackNavigator({
   },
 
 })
-
 
 const store = createStore(reducer, {}, applyMiddleware(thunk, logger));
 

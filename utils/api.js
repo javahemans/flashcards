@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-export const MFLASH_STORAGE_KEY = 'ntharani:flashcards:343o';
+export const MFLASH_STORAGE_KEY = 'ntharani:flashcards:01';
 
 let seedData = {
   React: {
@@ -45,27 +45,39 @@ export function apiFetchDeck(deckTitle) {
 }
 
 noErr = (title) => {
-  console.log("No Error on AsyncStorage mergeItem..");
+  // console.log("No Error on AsyncStorage mergeItem..");
 }
 
-export const apiAddDeck = (title) => {
-  const newPayload = JSON.stringify({ [title]: { title, questions: [] } })
-  // AsyncStorage: optional callback, success is no error, eg: Build the error as part of the callback
- return AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, newPayload, (err) => { err ? console.log("error", err) : noErr(title) })
+// Deliberately leaving this here as alternative for learning purposes. Functionally Idential.
+// export const apiAddDeck = (title) => {
+//   const newPayload = JSON.stringify({ [title]: { title, questions: [] } })
+//   // AsyncStorage: optional callback, success is no error, eg: Build the error as part of the callback
+//  return AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, newPayload, (err) => { err ? console.log("error", err) : noErr(title) })
+// }
+
+export const apiAddDeck = async (title) => {
+  try {
+    const newPayload = JSON.stringify({ [title]: { title, questions: [] } })
+    return AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, newPayload, (err) => { err ? console.log("error", err) : noErr(title) })
+    // AsyncStorage: optional callback, success is no error, eg: Build the error as part of the callback
+  } catch (e) {
+    console.log("ApiAddDeck Error is, ", e)    
+  }
 }
+
 
 export const apiAddCard = async (title, card) => {
   try {
   const oldQs = await apiFetchDeck(title)
-  console.log("Card is, ", card);
-  console.log("Old Q's are, ", oldQs.questions);
+  // console.log("Card is, ", card);
+  // console.log("Old Q's are, ", oldQs.questions);
   const updatedQ = [...oldQs.questions, card]
-  console.log("News Q's are, ", updatedQ);
+  // console.log("News Q's are, ", updatedQ);
   const newPayload = JSON.stringify({ [title]: { title, questions: updatedQ  } })
   return AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, newPayload, (err) => { err ? console.log("error", err) : console.log("No error")})
 
   } catch (e) {
-    console.log("Error is, ", e)
+    console.log("ApiAddCard Error is, ", e)
   }
 }
 

@@ -1,5 +1,7 @@
 import { apiFetchDecks, apiFetchDeck, apiAddDeck, apiAddCard } from '../utils/api.js'
 
+// Normally I'd separate these out, but there are so few it's make sense to keep it here
+
 export const ALT_FETCH_DECKS = 'ALT_FETCH_DECKS';
 export const FETCH_DECKS = 'FETCH_DECKS';
 export const FETCH_DECK = 'FETCH_DECK';
@@ -30,7 +32,7 @@ export const altFetchDecks = () => {
   return async dispatch => {
     try {
       const request = await apiFetchDecks();
-      console.log("The request from await in action creator is: ", request);
+      // console.log("The request from await in action creator is: ", request);
       dispatch({ type : ALT_FETCH_DECKS, payload: request })    
     } catch (e) {
       dispatch({ type : ALT_FETCH_DECKS, payload: 'error' })    
@@ -42,7 +44,7 @@ export const altFetchDecks = () => {
 export function addDeck(title) {
   return (dispatch) => {
      apiAddDeck(title)
-      .then(() => {
+      .then(res => {
         // console.log("In addDeck Action - on success res is null, so we just use the title to dispatch, ", res)
         dispatch({ type: ADD_DECK, title })
       });
@@ -51,10 +53,10 @@ export function addDeck(title) {
 
 export function addCard(title, card) {
   return (dispatch) => {
-    console.log("In addCard, part 1, card is: ", card, title)
+    // console.log("In addCard, part 1, card is: ", card, title)
     apiAddCard(title, card)
       .then(res => {
-        console.log("In addCard Action - - on success res is null, so we just dispatch ", res)
+        // console.log("In addCard Action - - on success res is null, so we just dispatch ", res)
           dispatch({ type: ADD_CARD, title, card })
       });
   }

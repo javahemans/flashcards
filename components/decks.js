@@ -28,6 +28,8 @@ componentDidMount() {
   const { altFetchDecks, fetchDecks, dispatch } = this.props
   altFetchDecks()
 
+  // Leaving this here deliberately for learning purposes..
+
   // try {
   //   const request = await apiFetchDecks();
   //   this.setState({ 
@@ -48,7 +50,7 @@ render() {
   const { decks } = this.props
   const { loading, error } = this.state
 
-  console.log("Entries is, ", this.props);
+  // console.log("Entries is, ", this.props);
 
   if (loading) {
     return <AppLoading />;
@@ -64,7 +66,7 @@ render() {
         {/* <Text>{JSON.stringify(decks)}</Text> */}
       {_.map(decks, (value, key) => (
         <Card key={key}>
-          <CardItem button onPress={ () => this.props.navigation.navigate('ViewDeck', {title: value.title, deck: value} )}>
+          <CardItem button onPress={ () => this.props.navigation.navigate('ViewDeck', {title: value.title} )}>
             <Left>
               <H1 style={{ alignSelf: "center" }}>{value.title}</H1>
             </Left>
@@ -92,6 +94,7 @@ const styles = StyleSheet.create({
   },
 });
 
+// Leaving this here deliberately for learning purposes..
 
 // function mapDispatchToProps (dispatch) {
 //   return {

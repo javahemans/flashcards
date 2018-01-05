@@ -1,7 +1,7 @@
 import { FETCH_DECKS, FETCH_DECK, ADD_DECK, ADD_CARD, ALT_FETCH_DECKS } from '../actions'
 
 function DecksReducer(state = {}, action) {
-  console.log("Action in Reducer is, ", action)
+  // console.log("Action in Reducer is, ", action)
   switch (action.type) {
     case ALT_FETCH_DECKS: {
       return {
@@ -35,7 +35,7 @@ function DecksReducer(state = {}, action) {
       // const updatedQs = state.title
       const cpState = state[title]["questions"]
 
-      console.log("In Reducer for ADD_CARD, updatedQs: ", cpState  )
+      // console.log("In Reducer for ADD_CARD, updatedQs: ", cpState  )
       return {
         ...state,
         [title]: {

@@ -19,7 +19,7 @@ class AddCard extends Component {
     const { params } = navigation.state;
     console.log("values is ", values)
 
-    addCard(params.deck.title, values)
+    addCard(params.title, values)
     dispatch(reset('NewCardForm'));
     dispatch(untouch('NewCardForm'));
     // navigation.navigate('Home') //navigation.goBack is borked.
@@ -28,7 +28,7 @@ class AddCard extends Component {
       index: 1,
       actions: [
         NavigationActions.navigate({ routeName: 'Home'}),
-        NavigationActions.navigate({ routeName: 'ViewDeck', params: {title: params.deck.title, deck: params.deck}})
+        NavigationActions.navigate({ routeName: 'ViewDeck', params: {title: params.title}})
       ]
     })
     navigation.dispatch(resetAction)

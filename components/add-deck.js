@@ -19,21 +19,23 @@ class AddDeck extends Component {
 
   submit = values => {
     const { addDeck, dispatch, navigation } = this.props
-    
-    console.log("values is ", values)
-    addDeck(values.title)
+    const { params } = navigation.state;
+    const title = values.title
+    // console.log("values is ", values, title)
+    addDeck(title)
     dispatch(reset('NewDeckForm'));
     dispatch(untouch('NewDeckForm'));
 
     const resetAction = NavigationActions.reset({
-      index: 0,
+      index: 1,
       actions: [
-        NavigationActions.navigate({ routeName: 'Home'})
+        NavigationActions.navigate({ routeName: 'Home'}),
+        NavigationActions.navigate({ routeName: 'ViewDeck', params: {title}})        
       ]
     })
-    navigation.dispatch(resetAction)
-
-    // navigation.navigate('Home') //navigation.goBack is borked.
+    
+    // navigation.dispatch(resetAction)
+    setTimeout(() => {navigation.dispatch(resetAction)}, 250)
   }
 
   renderInput = ({ input, label, type, meta: { touched, error, warning } }) => {
@@ -83,8 +85,8 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-function mapStateToProps({ decks }){ // ES6: equivalent to state here and then const posts = state.posts in the body.
-  return { decks }; // ES6 as opposed to posts:posts
+function mapStateToProps({ decks }){ 
+  return { decks };
 }
 
 AddDeck = connect(mapStateToProps, mapDispatchToProps )(AddDeck)

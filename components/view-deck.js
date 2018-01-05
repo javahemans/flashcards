@@ -11,15 +11,15 @@ class ViewDeck extends Component {
     
     return {
       title: params.title,
-      headerRight: <Button transparent title="Add Card" onPress={ () => navigation.navigate('AddCard', {deck: params.deck })}><Text style={{ color: 'white' }} >Add Card</Text></Button>,      
+      headerRight: <Button transparent title="Add Card" onPress={ () => navigation.navigate('AddCard', {title: params.title })}><Text style={{ color: 'white' }} >Add Card</Text></Button>,      
     }
   }
 
   componentDidMount() {
     const { params } = this.props.navigation.state;
     const { fetchDeck, dispatch } = this.props
-    console.log("Params deck - This value is ", params.deck.title)
-    fetchDeck(params.deck.title)
+    // console.log("Params deck - This value is ", params.title)
+    fetchDeck(params.title)
   }
 
   render () {
@@ -56,7 +56,7 @@ class ViewDeck extends Component {
 function mapStateToProps({decks}, ownProps){
   const { params } = ownProps.navigation.state;
   return { 
-    deck: decks[params.deck.title]
+    deck: decks[params.title]
    }
 }
 
