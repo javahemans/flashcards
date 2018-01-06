@@ -17,7 +17,7 @@ class AddCard extends Component {
   submit = values => {
     const { addCard, dispatch, navigation } = this.props
     const { params } = navigation.state;
-    console.log("values is ", values)
+    // console.log("values is ", values)
 
     addCard(params.title, values)
     dispatch(reset('NewCardForm'));

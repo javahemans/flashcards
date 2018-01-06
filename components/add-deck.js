@@ -34,8 +34,8 @@ class AddDeck extends Component {
       ]
     })
     
-    // navigation.dispatch(resetAction)
-    setTimeout(() => {navigation.dispatch(resetAction)}, 250)
+    navigation.dispatch(resetAction)
+    // setTimeout(() => {navigation.dispatch(resetAction)}, 250)
   }
 
   renderInput = ({ input, label, type, meta: { touched, error, warning } }) => {
@@ -79,17 +79,21 @@ function validate(values) {
   return errors;
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    addDeck: (request) => dispatch(addDeck(request)),
-  }
-}
+
+// Leaving this here for learning: I prefer to use bound action creators, rather than mapping here which
+// seems redundant
+
+// function mapDispatchToProps (dispatch) {
+//   return {
+//     addDeck: (request) => dispatch(addDeck(request)),
+//   }
+// }
 
 function mapStateToProps({ decks }){ 
   return { decks };
 }
 
-AddDeck = connect(mapStateToProps, mapDispatchToProps )(AddDeck)
+AddDeck = connect(mapStateToProps, {addDeck} )(AddDeck)
 
 
 export default AddDeck =  reduxForm({

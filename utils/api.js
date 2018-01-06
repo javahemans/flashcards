@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-export const MFLASH_STORAGE_KEY = 'ntharani:flashcards:01';
+export const MFLASH_STORAGE_KEY = 'ntharani:flashcards:01a';
 
 let seedData = {
   React: {
@@ -74,7 +74,7 @@ export const apiAddCard = async (title, card) => {
   const updatedQ = [...oldQs.questions, card]
   // console.log("News Q's are, ", updatedQ);
   const newPayload = JSON.stringify({ [title]: { title, questions: updatedQ  } })
-  return AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, newPayload, (err) => { err ? console.log("error", err) : console.log("No error")})
+  return AsyncStorage.mergeItem(MFLASH_STORAGE_KEY, newPayload, (err) => { err ? console.log("error", err) : noErr(title)})
 
   } catch (e) {
     console.log("ApiAddCard Error is, ", e)

@@ -3,6 +3,8 @@ import { View, StyleSheet } from 'react-native'
 import { Container, Button, Text, Content, H1, H2, H3, screenHeight, Dimensions } from 'native-base';
 import { fetchDeck } from '../actions'
 import { connect } from 'react-redux'
+import { AppLoading } from 'expo'
+
 
 class ViewDeck extends Component {
 
@@ -25,8 +27,9 @@ class ViewDeck extends Component {
   render () {
     const { params } = this.props.navigation.state;
     const { deck } = this.props;
-
     return (
+      typeof deck === 'undefined' ? <AppLoading /> :
+
       <Container>
         <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'space-around', padding: 10}}>
           {/* <H1>{params.deck.title}</H1> */}

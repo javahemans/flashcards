@@ -87,13 +87,6 @@ render() {
 }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: blue,
-  },
-});
-
 // Leaving this here deliberately for learning purposes..
 
 // function mapDispatchToProps (dispatch) {
@@ -103,8 +96,17 @@ const styles = StyleSheet.create({
 //   }
 // }
 
-function mapStateToProps({decks}){
-  return { decks }
-}
+const mapStateToProps = ({decks }) => ({ decks }); // more concise :)
+
+// function mapStateToProps({decks}){
+//   return { decks }
+// }
 
 export default connect(mapStateToProps, { altFetchDecks })(Decks)
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: blue,
+  },
+});
