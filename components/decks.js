@@ -48,6 +48,9 @@ componentDidMount() {
 render() {
 
   const { decks } = this.props
+
+  const orderedDecks = _.orderBy(decks, deck => { return deck.title }, 'asc')
+
   const { loading, error } = this.state
 
   // console.log("Entries is, ", this.props);
@@ -65,7 +68,7 @@ render() {
     <Container>
       <Content>
         {/* <Text>{JSON.stringify(decks)}</Text> */}
-      {_.map(decks, (value, key) => (
+      {_.map(orderedDecks, (value, key) => (
         <Card key={key}>
           <CardItem button onPress={ () => this.props.navigation.navigate('ViewDeck', {title: value.title} )}>
             <Left>
