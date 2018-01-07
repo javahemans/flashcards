@@ -10,6 +10,8 @@ import ViewDeck from './components/view-deck.js'
 import AddDeck from './components/add-deck.js'
 import AddCard from './components/add-card.js'
 import QuizView from './components/quiz-deck.js'
+import Settings from './components/app-settings.js'
+
 import { setLocalNotification } from './utils/notifications'
 
 import { purple, white, red } from './utils/colors'
@@ -67,7 +69,15 @@ const MainNavigator = StackNavigator({
       }
     }
   },
-
+  Settings: {
+    screen: Settings,
+    navigationOptions: {
+      headerTintColor: red,
+      headerStyle: {
+        backgroundColor: white,
+      }
+    }
+  },
 })
 
 const store = createStore(reducer, {}, applyMiddleware(thunk, logger));

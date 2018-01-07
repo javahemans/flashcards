@@ -15,7 +15,7 @@ class Decks extends Component {
     return {
       title: `Decks`,
       headerRight: <Button transparent title="Add Deck" onPress={ () => navigation.navigate('AddDeck')}><Text style={{ color: 'white' }}>Add Deck</Text></Button>,      
-      headerLeft: null
+      headerLeft: <Button transparent title="Settings" onPress={ () => navigation.navigate('Settings')}><Text style={{ color: 'white' }}>Settings</Text></Button>
     }
   }
 
@@ -61,6 +61,7 @@ render() {
   
   
   return (
+    typeof decks === 'undefined' ? <AppLoading /> :
     <Container>
       <Content>
         {/* <Text>{JSON.stringify(decks)}</Text> */}

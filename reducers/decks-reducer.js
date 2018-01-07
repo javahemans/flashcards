@@ -5,7 +5,6 @@ function DecksReducer(state = {}, action) {
   switch (action.type) {
     case ALT_FETCH_DECKS: {
       return {
-        ...state,
         ...action.payload        
       }  
     }
